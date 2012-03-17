@@ -111,22 +111,26 @@ function love.update(dt)
 end
 
 function add(a, b, coll)
-    --text = text..a.." colliding with "..b.." on turn "..getTurn().."\n"
-
-	if (a == "p1" and getTurn() == 2) then
+    text = text..a.." colliding with "..b.." on turn "..getTurn().."\n"
+	if (a == "ground" or (a == "arrow" and b == "tree")) then
+		changeTurn()
+		firing = false
+		cleaning = true
+	elseif (a == "p1" and getTurn() == 2) then
 		hscore = hscore + 1
 		setNewTree()
 		setNewWind()
+		changeTurn()
+		firing = false
+		cleaning = true
 	elseif (a == "p2" and getTurn() == 1) then
 		dscore = dscore + 1
 		setNewTree()
 		setNewWind()
+		changeTurn()
+		firing = false
+		cleaning = true
 	end
-	
-	changeTurn()
-	firing = false
-	cleaning = true
-	
 end
 
 function love.draw()

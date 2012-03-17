@@ -51,11 +51,11 @@ function keypressed_boat(key)
 	
 end
 
-first = 10
-second = 20
-third = 30
-forth = 40
-fifth = 50
+local first = 10
+local second = 20
+local third = 30
+local forth = 40
+local fifth = 50
 function draw_animated_sprite()
 	if boat.direction == "right" then
 		if boat.moving < first then

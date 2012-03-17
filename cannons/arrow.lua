@@ -4,9 +4,9 @@ prevY = 0
 function getNewArrow(dir)
 	objects.arrow = {}
 	if dir == 1 then
-		objects.arrow.body = love.physics.newBody(world, objects.players.one.body:getX(), 390, 15, 0)
+		objects.arrow.body = love.physics.newBody(world, objects.players.one.body:getX(), 375, 15, 0)
 	elseif dir == 2 then
-		objects.arrow.body = love.physics.newBody(world, objects.players.two.body:getX(), 390, 15, 0)
+		objects.arrow.body = love.physics.newBody(world, objects.players.two.body:getX(), 375, 15, 0)
 	end
 	objects.arrow.shape = love.physics.newRectangleShape(objects.arrow.body, 0, 0, 14, 6, 0)
 	objects.arrow.sprite = love.graphics.newImage("arrow.png")

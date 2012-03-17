@@ -8,7 +8,5 @@ function draw_opening()
 end
 
 function key_opening(key)
-	if key == " " then
-		gamestate = "boat"
-	end
+	if key == "return" then gamestate = "boat" end
 end
