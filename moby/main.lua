@@ -7,7 +7,15 @@ function love.load()
 	love.graphics.setBackgroundColor(66, 64, 255)
 	love.graphics.setCaption("DICK: THE VIDEO GAME")
 	
-	world = love.physics.newWorld(0,0,600,600)
+	local music = love.audio.newSource("moby_dick.wav")
+	music:setLooping(true)
+	love.audio.play(music)
+	
+	world = love.physics.newWorld(-100,-100,800,800)
+	world:setMeter(32)
+	world:setCallbacks(add)
+	
+	objects = {}
 	
 	load_opening()
 	load_boat()
@@ -32,14 +40,18 @@ function love.update(dt)
 			dive_event_delay = dive_event_delay - dt
 			if dive_event_delay < 0 then dive_event_trigger = true end
 		else
-			if math.ceil(math.random(1,1000)) > 995 then gamestate = "diving" end
+			if math.ceil(math.random(1,1000)) > 1 then gamestate = "diving" end
 		end
 		update_boat(dt)
-		
+		gamestate = "diving"
 	elseif gamestate == "diving" then
 		update_diving(dt)
 	end
 	
+end
+
+function add(a, b, coll)
+    text = text..a.." colliding with "..b.." on turn "..getTurn().."\n"
 end
 
 function love.draw()

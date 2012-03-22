@@ -1,53 +1,61 @@
 function load_diver()
-	diver = {}
-	diver.sprites = {}
-	diver.x = 100
-	diver.y = 200
-	diver.direction = "right"
-	diver.moving = 0
+	objects.diver = {}
+	objects.diver.sprites = {}
+	objects.diver.x = 100
+	objects.diver.y = 200
+	objects.diver.direction = "right"
+	objects.diver.moving = 0
 	
-	diver.sprites.one = love.graphics.newImage("man_swim_1.png")
-	diver.sprites.two = love.graphics.newImage("man_swim_2.png")
-	diver.sprites.one:setFilter("nearest","nearest")
-	diver.sprites.two:setFilter("nearest","nearest")
+	objects.diver.body = love.physics.newBody(world, objects.diver.x, objects.diver.y, 0,0)
+	objects.diver.shape = love.physics.newRectangleShape(objects.diver.body, 18, 15, 36, 30, 0)
+	objects.diver.shape:setData("diver")
+	objects.diver.shape:setFilterData(1,0,0)
+	objects.diver.shape:setMask(1)
+	
+	objects.diver.sprites.one = love.graphics.newImage("man_swim_1.png")
+	objects.diver.sprites.two = love.graphics.newImage("man_swim_2.png")
+	objects.diver.sprites.one:setFilter("nearest","nearest")
+	objects.diver.sprites.two:setFilter("nearest","nearest")
 end
 
 function update_diver(dt)
 	local speed = 100
 	if love.keyboard.isDown("right") then
-		diver.direction = "right"
-		diver.x = diver.x + (dt * speed)
+		objects.diver.direction = "right"
+		objects.diver.body:setX(objects.diver.body:getX() + (dt * speed))
 	elseif love.keyboard.isDown("left") then
-		diver.direction = "left"
-		diver.x = diver.x - (dt * speed)
+		objects.diver.direction = "left"
+		objects.diver.body:setX(objects.diver.body:getX() - (dt * speed))
 	elseif love.keyboard.isDown("up") then
-		diver.y = diver.y - (dt * speed)
+		objects.diver.body:setY(objects.diver.body:getY() - (dt * speed))
 	elseif love.keyboard.isDown("down") then
-		diver.y = diver.y + (dt * speed)
+		objects.diver.body:setY(objects.diver.body:getY() + (dt * speed))
 	end
-	diver.moving = diver.moving + 1
+	objects.diver.moving = objects.diver.moving + 1
 end
 
 local first = 10
 local second = 20
 function draw_diver()
-	if diver.direction == "left" then
-		if diver.moving < first then 
-			love.graphics.draw(diver.sprites.one, diver.x, diver.y,0,-2,2,18)
-		elseif diver.moving >= first and diver.moving < second then
-			love.graphics.draw(diver.sprites.two, diver.x, diver.y,0,-2,2,18) 
+	--love.graphics.polygon("fill", objects.diver.shape:getPoints())
+
+	if objects.diver.direction == "left" then
+		if objects.diver.moving < first then 
+			love.graphics.draw(objects.diver.sprites.one, objects.diver.body:getX(), objects.diver.body:getY(),0,-2,2,18)
+		elseif objects.diver.moving >= first and objects.diver.moving < second then
+			love.graphics.draw(objects.diver.sprites.two, objects.diver.body:getX(), objects.diver.body:getY(),0,-2,2,18) 
 		else
-			love.graphics.draw(diver.sprites.one, diver.x, diver.y,0,-2,2,18)
-			diver.moving = 1
+			love.graphics.draw(objects.diver.sprites.one, objects.diver.body:getX(), objects.diver.body:getY(),0,-2,2,18)
+			objects.diver.moving = 1
 		end
-	elseif diver.direction == "right" then
-		if diver.moving < first then
-			love.graphics.draw(diver.sprites.one, diver.x, diver.y,0,2,2)
-		elseif diver.moving >= first and diver.moving < second then
-			love.graphics.draw(diver.sprites.two, diver.x, diver.y,0,2,2) 
+	elseif objects.diver.direction == "right" then
+		if objects.diver.moving < first then
+			love.graphics.draw(objects.diver.sprites.one, objects.diver.body:getX(), objects.diver.body:getY(),0,2,2)
+		elseif objects.diver.moving >= first and objects.diver.moving < second then
+			love.graphics.draw(objects.diver.sprites.two, objects.diver.body:getX(), objects.diver.body:getY(),0,2,2) 
 		else
-			love.graphics.draw(diver.sprites.one, diver.x, diver.y,0,2,2)
-			diver.moving = 1
+			love.graphics.draw(objects.diver.sprites.one, objects.diver.body:getX(), objects.diver.body:getY(),0,2,2)
+			objects.diver.moving = 1
 		end
 	end
 end
