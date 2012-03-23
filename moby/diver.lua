@@ -6,16 +6,16 @@ function load_diver()
 	objects.diver.direction = "right"
 	objects.diver.moving = 0
 	
-	objects.diver.body = love.physics.newBody(world, objects.diver.x, objects.diver.y, 0,0)
-	objects.diver.shape = love.physics.newRectangleShape(objects.diver.body, 18, 15, 36, 30, 0)
+	objects.diver.body = love.physics.newBody(world, objects.diver.x, objects.diver.y, 10,0)
+	objects.diver.shape = love.physics.newRectangleShape(objects.diver.body, 18, 14, 36, 28, 0)
 	objects.diver.shape:setData("diver")
-	objects.diver.shape:setFilterData(1,0,0)
-	objects.diver.shape:setMask(1)
-	
-	objects.diver.sprites.one = love.graphics.newImage("man_swim_1.png")
-	objects.diver.sprites.two = love.graphics.newImage("man_swim_2.png")
+	objects.diver.sprites.one = love.graphics.newImage("img/man_swim_1.png")
+	objects.diver.sprites.two = love.graphics.newImage("img/man_swim_2.png")
 	objects.diver.sprites.one:setFilter("nearest","nearest")
 	objects.diver.sprites.two:setFilter("nearest","nearest")
+	
+	objects.diver.shape:setFilterData(1,1,-1)
+	
 end
 
 function update_diver(dt)

@@ -1,5 +1,5 @@
 function load_opening()
-	introsprite = love.graphics.newImage("intro.png")
+	introsprite = love.graphics.newImage("img/intro.png")
 	introsprite:setFilter("nearest","nearest")
 end
 

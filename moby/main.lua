@@ -7,14 +7,14 @@ function love.load()
 	love.graphics.setBackgroundColor(66, 64, 255)
 	love.graphics.setCaption("DICK: THE VIDEO GAME")
 	
-	local music = love.audio.newSource("moby_dick.wav")
+	local music = love.audio.newSource("sfx/moby_dick.wav")
 	music:setLooping(true)
 	love.audio.play(music)
 	
 	world = love.physics.newWorld(-100,-100,800,800)
 	world:setMeter(32)
-	world:setCallbacks(add)
-	
+	world:setCallbacks(add, persist, rem, result)
+	world:setGravity(0,0)
 	objects = {}
 	
 	load_opening()
@@ -22,6 +22,7 @@ function love.load()
 	load_diving()
 	
 	gamestate = "opening"
+	
 	text = ""
 end
 
@@ -50,15 +51,12 @@ function love.update(dt)
 	
 end
 
-function add(a, b, coll)
-    text = text..a.." colliding with "..b.." on turn "..getTurn().."\n"
-end
-
 function love.draw()
-	love.graphics.print(text, 100, 100)
 
 	if gamestate == "opening" then draw_opening()
 	elseif gamestate == "boat" then draw_boat()
 	elseif gamestate == "diving" then draw_diving()
 	end
+
+	--love.graphics.print(text, 100, 100)
 end
